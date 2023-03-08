@@ -1,4 +1,4 @@
-package com.example.musicapp.screens.main
+package com.example.musicapp.screens.main.main
 
 import android.util.Log
 import androidx.compose.foundation.clickable
@@ -63,8 +63,10 @@ fun AlbumColumn(data: List<Data>){
 fun AlbumCard(item: Data){
     Column(modifier = Modifier
         .fillMaxWidth()
-        .padding(8.dp).clickable(onClick = {
-           // do nothing for now
+        .padding(8.dp)
+        .clickable(onClick = {
+            Log.d("MainScreen", "AlbumCard: ${item.album.cover_xl}")
+            // do nothing for now
         }),
         horizontalAlignment = Alignment.CenterHorizontally) {
         AsyncImage(

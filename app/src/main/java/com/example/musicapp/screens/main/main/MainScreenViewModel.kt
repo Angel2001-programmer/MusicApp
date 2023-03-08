@@ -1,4 +1,4 @@
-package com.example.musicapp.screens.main
+package com.example.musicapp.screens.main.main
 
 import androidx.lifecycle.ViewModel
 import com.example.musicapp.data.DataOrException
