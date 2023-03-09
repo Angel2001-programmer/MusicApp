@@ -8,10 +8,12 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object MusicModule {
+    @Singleton
     @Provides
     fun providesData(): MusicAPI {
         return Retrofit.Builder()

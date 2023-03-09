@@ -18,16 +18,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.musicapp.data.DataOrException
 import com.example.musicapp.model.Data
 import com.example.musicapp.model.Music
+import com.example.musicapp.navigation.AppRoutes
 
 @Composable
-fun MainScreen() {
-    val mainViewModel: MainScreenViewModel = viewModel()
-
+fun MainScreen(navController: NavController,
+               mainViewModel: MainScreenViewModel = hiltViewModel()
+) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -43,31 +45,33 @@ fun MainScreen() {
             CircularProgressIndicator(strokeWidth = 12.dp, color = Color.Magenta)
             Log.d("MainScreen", "MainScreen: $musicData")
         } else if(musicData.data != null){
-            AlbumColumn(data = musicData.data!!.data)
+            AlbumColumn(data = musicData.data!!.data, mainViewModel, navController)
         }
     }
 }
 
 @Composable
-fun AlbumColumn(data: List<Data>){
+fun AlbumColumn(data: List<Data>, mainViewModel: MainScreenViewModel, navController: NavController){
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center, content = {
         items(data) {item ->
-            AlbumCard(item)
+            AlbumCard(item, mainViewModel, navController)
     }
     })
 }
 
 @Composable
-fun AlbumCard(item: Data){
+fun AlbumCard(item: Data, mainViewModel: MainScreenViewModel, navController: NavController){
     Column(modifier = Modifier
         .fillMaxWidth()
         .padding(8.dp)
         .clickable(onClick = {
+            mainViewModel.TrackId = item.id
             Log.d("MainScreen", "AlbumCard: ${item.album.cover_xl}")
-            // do nothing for now
+            navController.navigate(AppRoutes.PlayerScreen.name)
         }),
+
         horizontalAlignment = Alignment.CenterHorizontally) {
         AsyncImage(
             modifier = Modifier.clip(RoundedCornerShape(5)),

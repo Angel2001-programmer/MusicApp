@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.musicapp.screens.main.main.MainScreen
+import com.example.musicapp.navigation.AppNavigation
 import com.example.musicapp.ui.theme.MusicAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,7 +32,8 @@ fun MusicApp() {
         modifier = Modifier.fillMaxSize(),
         color = Color(0xFF010625)
     ) {
-        MainScreen()
+        AppNavigation()
+//        AppNavigation(navController = navController)
     }
 }
 
